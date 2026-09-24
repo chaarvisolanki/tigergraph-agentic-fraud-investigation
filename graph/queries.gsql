@@ -1,0 +1,26 @@
+CREATE QUERY account_device_ring(STRING account_id, INT min_shared_accounts) FOR GRAPH FraudGraph {
+  SumAccum<INT> @@shared_accounts;
+  SetAccum<STRING> @@accounts;
+  SetAccum<STRING> @@devices;
+  matches = SELECT other FROM Account:target -(USES_DEVICE)- Device:d -(USES_DEVICE)- Account:other
+            WHERE target.account_id == account_id AND other.account_id != account_id
+            ACCUM @@shared_accounts += 1, @@accounts += other.account_id, @@devices += d.device_id;
+  PRINT @@shared_accounts AS shared_account_count, @@accounts AS shared_accounts, @@devices AS shared_devices;
+}
+
+CREATE QUERY account_velocity(STRING account_id, DATETIME window_start, DATETIME window_end,
+                               INT velocity_threshold, DOUBLE amount_threshold) FOR GRAPH FraudGraph {
+  SumAccum<INT> @@count;
+  SumAccum<DOUBLE> @@amount;
+  SetAccum<STRING> @@transactions;
+  txns = SELECT t FROM Account:a -(INITIATED)- Transaction:t
+         WHERE a.account_id == account_id AND t.transaction_dt >= window_start AND t.transaction_dt <= window_end
+         ACCUM @@count += 1, @@amount += t.transaction_amt, @@transactions += t.transaction_id;
+  PRINT @@count AS transaction_count, @@amount AS total_amount, @@transactions AS transaction_ids;
+}
+
+CREATE QUERY prior_similar_cases(STRING account_id, STRING pattern_id) FOR GRAPH FraudGraph {
+  cases = SELECT c FROM Account:a <-(ABOUT_ACCOUNT)- Case:c
+          WHERE a.account_id == account_id ORDER BY c.confidence DESC LIMIT 10;
+  PRINT cases;
+}

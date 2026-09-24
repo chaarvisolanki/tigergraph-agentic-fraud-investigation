@@ -1,0 +1,11 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Fraud Investigation Console</title>
+<style>body{font-family:Arial;max-width:1000px;margin:32px auto;color:#172033}button{padding:10px 16px}textarea{width:100%;height:100px}pre{background:#f4f6f8;padding:16px;overflow:auto}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}</style></head>
+<body><h1>Agentic Fraud Investigation</h1>
+<p>Run a controlled investigation and inspect evidence, uncertainty, next-best-actions, approvals, SAR, and graph memory.</p>
+<div class="grid"><label>Account ID<input id="account" value="acct_demo_001"></label><label>Transaction ID<input id="txn" value="txn_demo_001"></label></div>
+<p><button onclick="run()">Start investigation</button></p><pre id="out">Waiting...</pre>
+<script>
+async function run(){const body={type:"risk_score",source:"analyst_ui",account_id:account.value,transaction_id:txn.value,reason:"Analyst requested review"};const r=await fetch("/investigations",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});out.textContent=JSON.stringify(await r.json(),null,2)}
+</script></body></html>

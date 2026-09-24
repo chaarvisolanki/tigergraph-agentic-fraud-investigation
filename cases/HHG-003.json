@@ -1,0 +1,167 @@
+{
+  "case_id": "HHG-003",
+  "case": {
+    "status": "closed_fraud",
+    "verdict": "fraud",
+    "fraud_probability": 0.86,
+    "pattern": "none",
+    "pattern_description": "",
+    "affected_txn_ids": [
+      "3524629",
+      "3524740",
+      "3525595",
+      "3527130",
+      "3527215",
+      "3527397",
+      "3527532",
+      "3528392",
+      "3528902",
+      "3529041",
+      "3529981",
+      "3530056",
+      "3530164",
+      "3531019",
+      "3531833",
+      "3532138",
+      "3532333",
+      "3532926",
+      "3533469",
+      "3533601"
+    ],
+    "first_suspicious_txn_id": "3524629",
+    "connected_card_ids": [],
+    "connected_device_profiles": [],
+    "exposure_usd": 4266.01,
+    "evidence": [
+      {
+        "claim": "Flagged transaction 3530164 was in_person for $49.00 with risk score 0.40.",
+        "source": "graph",
+        "ref": "query:transaction_context",
+        "entity_ids": [
+          "3530164",
+          "C08623-K2",
+          "C08623"
+        ]
+      },
+      {
+        "claim": "26 transactions for this customer occurred within 48 hours of the flagged transaction.",
+        "source": "graph",
+        "ref": "query:card_window",
+        "entity_ids": [
+          "3524629",
+          "3524740",
+          "3525595",
+          "3527130",
+          "3527215",
+          "3527397",
+          "3527532",
+          "3528392",
+          "3528902",
+          "3529041",
+          "3529981",
+          "3530056",
+          "3530164",
+          "3531019",
+          "3531833",
+          "3532138",
+          "3532333",
+          "3532926",
+          "3533469",
+          "3533601",
+          "3533775",
+          "3533776",
+          "3533819",
+          "3534946",
+          "3535845",
+          "3535867"
+        ]
+      },
+      {
+        "claim": "Retrieved 5 prior closed case(s) for this customer as investigation memory.",
+        "source": "graph",
+        "ref": "query:prior_similar_cases",
+        "entity_ids": [
+          "CC-1589",
+          "CC-2817",
+          "CC-2935",
+          "CC-3327",
+          "CC-3682"
+        ]
+      }
+    ],
+    "similar_prior_cases": [
+      "CC-1589",
+      "CC-2817",
+      "CC-2935",
+      "CC-3327",
+      "CC-3682"
+    ],
+    "summary": "Fraud assessment for C08623-K2 based on 3 evidence items and 5 similar prior case(s).",
+    "written_to_graph": true,
+    "graph_case_id": "CASE-HHG-003"
+  },
+  "evidence_requests": [],
+  "next_best_actions": {
+    "initial": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "R2/R5: fraud probability is supported by the trigger and graph evidence."
+      }
+    ],
+    "final": [
+      {
+        "action": "CREATE_CASE",
+        "route": "auto",
+        "reason": "R2: confirmed or strongly suspected unauthorized activity."
+      },
+      {
+        "action": "BLOCK_CARD",
+        "route": "L2",
+        "reason": "R2: customer report or multiple independent fraud signals."
+      },
+      {
+        "action": "FILE_REPORT",
+        "route": "L2",
+        "reason": "R2/R6/R9: report threshold or shared/ coordinated activity met."
+      }
+    ],
+    "what_changed": "Customer report and graph evidence established the final actions."
+  },
+  "sar": {
+    "file": true,
+    "reason": "R2/R6/R9 threshold met.",
+    "narrative": "Between 2016-12-08 and 2016-12-11, customer C08623, card C08623-K2, had 20 suspicious transaction(s) totaling $4266.01. The activity involved none and was identified from transaction history, risk signals, and connected identity evidence. The activity is suspicious because the evidence supports unauthorized or coordinated use under the bank's policy.",
+    "subjects": [
+      "C08623",
+      "C08623-K2"
+    ],
+    "total_amount_usd": 4266.01,
+    "activity_dates": [
+      "2016-12-08",
+      "2016-12-08",
+      "2016-12-08",
+      "2016-12-09",
+      "2016-12-09",
+      "2016-12-09",
+      "2016-12-09",
+      "2016-12-09",
+      "2016-12-09",
+      "2016-12-09",
+      "2016-12-10",
+      "2016-12-10",
+      "2016-12-10",
+      "2016-12-10",
+      "2016-12-10",
+      "2016-12-11",
+      "2016-12-11",
+      "2016-12-11",
+      "2016-12-11",
+      "2016-12-11"
+    ]
+  },
+  "stop_reason": "Evidence threshold or policy decision reached; further steps are unlikely to change the recommendation.",
+  "tool_calls": 9,
+  "tokens": 0,
+  "latency_s": 0.0832
+}

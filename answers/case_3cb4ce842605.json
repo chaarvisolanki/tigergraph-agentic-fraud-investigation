@@ -1,0 +1,156 @@
+{
+  "case_id": "case_3cb4ce842605",
+  "status": "resolved",
+  "trigger": {
+    "type": "risk_score",
+    "source": "analyst_ui",
+    "transaction_id": "txn_demo_001",
+    "account_id": "acct_demo_001",
+    "reason": "Analyst requested review",
+    "created_at": "2026-09-23T19:05:00.292067Z"
+  },
+  "account_id": "acct_demo_001",
+  "transaction_id": "txn_demo_001",
+  "evidence": [
+    {
+      "evidence_id": "ev_e61d02035283",
+      "type": "transaction",
+      "source": "tigergraph",
+      "summary": "transaction: {'transaction_id': 'txn_demo_001', 'amount': 842.1, 'risk_score': 0.91}",
+      "strength": 0.5,
+      "polarity": "neutral",
+      "observed_at": "2026-09-23T19:05:00.292067Z",
+      "metadata": {
+        "raw": {
+          "transaction_id": "txn_demo_001",
+          "amount": 842.1,
+          "risk_score": 0.91
+        }
+      }
+    },
+    {
+      "evidence_id": "ev_2b23a1f656b6",
+      "type": "account",
+      "source": "tigergraph",
+      "summary": "account: {'account_id': 'acct_demo_001', 'status': 'active'}",
+      "strength": 0.5,
+      "polarity": "neutral",
+      "observed_at": "2026-09-23T19:05:00.292067Z",
+      "metadata": {
+        "raw": {
+          "account_id": "acct_demo_001",
+          "status": "active"
+        }
+      }
+    },
+    {
+      "evidence_id": "ev_82e305508c91",
+      "type": "device_ring",
+      "source": "tigergraph",
+      "summary": "device_ring: {'shared_account_count': 6, 'shared_device_count': 1}",
+      "strength": 0.5,
+      "polarity": "neutral",
+      "observed_at": "2026-09-23T19:05:00.292067Z",
+      "metadata": {
+        "raw": {
+          "shared_account_count": 6,
+          "shared_device_count": 1
+        }
+      }
+    },
+    {
+      "evidence_id": "ev_6171d0da36f1",
+      "type": "velocity",
+      "source": "tigergraph",
+      "summary": "velocity: {'transaction_count': 4, 'total_amount': 1840.5}",
+      "strength": 0.5,
+      "polarity": "neutral",
+      "observed_at": "2026-09-23T19:05:00.292067Z",
+      "metadata": {
+        "raw": {
+          "transaction_count": 4,
+          "total_amount": 1840.5
+        }
+      }
+    },
+    {
+      "evidence_id": "ev_408bea512a78",
+      "type": "prior_cases",
+      "source": "tigergraph",
+      "summary": "prior_cases: [{'case_id': 'prior_demo', 'outcome': 'confirmed_fraud', 'similarity': 0.86}]",
+      "strength": 0.5,
+      "polarity": "neutral",
+      "observed_at": "2026-09-23T19:05:00.292067Z",
+      "metadata": {
+        "raw": [
+          {
+            "case_id": "prior_demo",
+            "outcome": "confirmed_fraud",
+            "similarity": 0.86
+          }
+        ]
+      }
+    },
+    {
+      "evidence_id": "ev_a4214174c043",
+      "type": "step_up_auth",
+      "source": "controlled_action",
+      "summary": "Controlled evidence received for step_up_auth.",
+      "strength": 0.65,
+      "polarity": "neutral",
+      "observed_at": "2026-09-23T19:05:00.292067Z",
+      "metadata": {}
+    }
+  ],
+  "findings": [],
+  "matched_patterns": [],
+  "risk_level": "high",
+  "confidence": 0.88,
+  "enough_evidence_before_request": true,
+  "additional_evidence_requested": {
+    "type": "step_up_auth",
+    "reason": "Confirm account-owner intent before blocking activity.",
+    "case_id": "case_3cb4ce842605"
+  },
+  "additional_evidence_received": true,
+  "next_best_action_before_evidence": {
+    "action": "request_step_up_auth",
+    "rationale": "block_transaction",
+    "confidence": 0.88,
+    "requires_human_approval": false,
+    "recorded_at": "2026-09-23T19:05:00.292067Z"
+  },
+  "next_best_action_after_evidence": {
+    "action": "block_transaction",
+    "rationale": "block_transaction",
+    "confidence": 0.88,
+    "requires_human_approval": false,
+    "recorded_at": "2026-09-23T19:05:00.292067Z"
+  },
+  "decisions": [
+    "block_transaction",
+    "block_transaction"
+  ],
+  "actions": [
+    {
+      "action_id": "act_a14b1302b3c0",
+      "action": "block_transaction",
+      "status": "executed",
+      "rationale": "block_transaction",
+      "requires_human_approval": false,
+      "approval_route": null,
+      "result": {
+        "mock": true,
+        "executed_action": "block_transaction"
+      },
+      "created_at": "2026-09-23T19:05:00.293219Z"
+    }
+  ],
+  "explanation": "Decision grounded in graph transaction history, velocity, shared-device relationships, prior cases, and policy context.",
+  "outcome": null,
+  "sar_required": true,
+  "sar_text": "Suspicious activity case case_3cb4ce842605: Decision grounded in graph transaction history, velocity, shared-device relationships, prior cases, and policy context. Risk level high, confidence 0.88. This SAR draft requires compliance review before filing.",
+  "graph_written": true,
+  "opened_at": "2026-09-23T19:05:00.292067Z",
+  "updated_at": "2026-09-23T19:05:00.293219Z"
+}
